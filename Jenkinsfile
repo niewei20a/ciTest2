@@ -1,9 +1,10 @@
 pipeline {
   agent {
     docker {
-        image 'maven:3-alpine'
-        args '-v /root/.m2:/root/.m2'
+      image 'maven:3-alpine'
+      args '-v /root/.m2:/root/.m2'
     }
+
   }
   stages {
     stage('build') {
@@ -11,5 +12,12 @@ pipeline {
         sh 'mvn clean package -DskipTests -U'
       }
     }
+
+    stage('') {
+      steps {
+        sh 'docker build -t ciTestImage'
+      }
+    }
+
   }
 }
