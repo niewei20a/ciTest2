@@ -12,12 +12,13 @@ pipeline {
         IMAGE_NAME="springboot-test"                    // 镜像名一般和项目名相同
         IMAGE_ADDR="https://hub.docker.com/repository/docker/niewei20a/${IMAGE_NAME}"    // 镜像的位置
         VERSION_ID="${BUILD_ID}"
+        BRANCH="master"
     }
     stages {
         stage('pullCode'){
             steps{
                 echo 'This is a pullCode step'
-                //git branch: "${BRANCH}", credentialsId: '1001', url: "${GIT_PROJECT_ADDR}"
+                git branch: "${BRANCH}", credentialsId: '1001', url: "${GIT_PROJECT_ADDR}"
                 checkout scm
             }
         }
