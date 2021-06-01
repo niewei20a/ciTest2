@@ -8,7 +8,7 @@ pipeline {
         GIT_PROJECT_ADDR="https://gitee.com/niewei20a/ci-test2.git" //项目的git地址
         JENKINS_WORKSPACE="/root/.jenkins/workspace"    //jenkins存放文件的地址
         PROJECT_NAME="${JOB_NAME}"  			        // 项目名
-        JAR_NAME="springboot-test-0.0.1-SNAPSHOT.jar"   // 项目生成的jar的名字
+        JAR_NAME="ciTest2-0.0.1-SNAPSHOT.jar"   // 项目生成的jar的名字
         IMAGE_NAME="springboot-test"                    // 镜像名一般和项目名相同
         IMAGE_ADDR="registry.cn-hangzhou.aliyuncs.com/niewei/test"    // 镜像的位置
         VERSION_ID="${BUILD_ID}"
@@ -63,12 +63,12 @@ pipeline {
                         fi
 
                         old_pid=`ps -ef|grep ${JAR_NAME}|grep -v grep|awk '{print $2}'`
-                        if [[ -n $old_pid ]]; then
+                        if [ -n "$old_pid" ]; then
                             kill -9 $old_pid
                         fi
 
                         old_image=`docker images|grep ${IMAGE_ADDR}|grep ${VERSION_ID}  `
-                        if [[ -n $old_image ]]; then
+                        if [ -n "$old_image" ]; then
                             old_image_id=`echo ${old_image}|awk '{print $3}'`
                             docker rmi -f ${old_image_id}
                         fi
