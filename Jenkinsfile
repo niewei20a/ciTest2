@@ -50,23 +50,12 @@ pipeline {
             }
         }
         stage('run') {
-            // 在应用服务器节点 test
-            agent {
-                node {
-                    label 'test'
-                    //customWorkspace "${SERVER_TARGET_PATH}"  //此参数会初始化目录 注意填写
-                }
-            }
-            options {
-                // 不让它切换到节点上自动从仓库拉取项目
-                skipDefaultCheckout()
-            }
             steps {
                 echo 'pull image and docker run'
                 withEnv(['JENKINS_NODE_COOKIE=dontKillMe']) {
                     sh '''
-                         docker login --username=yourusername --password=yourpassword ccr.ccs.tencentyun.com
-                         docker pull ${IMAGE_ADDR}:${VERSION_ID}
+                        docker login --username=1819971643@qq.com registry.cn-hangzhou.aliyuncs.com -p 1819971643nw
+                        docker pull ${IMAGE_ADDR}:${VERSION_ID}
 
                         container_id=`docker ps|grep ${IMAGE_ADDR}:${VERSION_ID}|awk '{print $1}'`
                         if [ -n "${container_id}" ]; then
