@@ -73,7 +73,7 @@ pipeline {
                             docker rmi -f ${old_image_id}
                         fi
 
-                        docker run --name "${PROJECT_NAME}_${VERSION_ID}" -p 9001:8081 -d ${IMAGE_ADDR}:${VERSION_ID}
+                        docker run --name "${PROJECT_NAME}-${VERSION_ID}" -p 9001:8081 -d ${IMAGE_ADDR}:${VERSION_ID}
                     '''
                 }
             }
