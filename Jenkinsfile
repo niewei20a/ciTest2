@@ -7,15 +7,15 @@ pipeline {
 
   }
   stages {
-    stage('build') {
+    stage('package') {
       steps {
         sh 'mvn clean package -DskipTests -U'
       }
     }
 
-    stage('') {
+    stage('docker-build') {
       steps {
-        sh 'docker build -t ciTestImage'
+        sh 'docker build -t niewei/ciTest'
       }
     }
 
