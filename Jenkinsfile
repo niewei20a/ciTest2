@@ -10,7 +10,7 @@ pipeline {
         PROJECT_NAME="${JOB_NAME}"  			        // 项目名
         JAR_NAME="springboot-test-0.0.1-SNAPSHOT.jar"   // 项目生成的jar的名字
         IMAGE_NAME="springboot-test"                    // 镜像名一般和项目名相同
-        IMAGE_ADDR="https://hub.docker.com/repository/docker/niewei20a/${IMAGE_NAME}"    // 镜像的位置
+        IMAGE_ADDR="registry.cn-hangzhou.aliyuncs.com/niewei/test/${IMAGE_NAME}"    // 镜像的位置
         VERSION_ID="${BUILD_ID}"
         BRANCH="master"
     }
