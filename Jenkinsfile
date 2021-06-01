@@ -38,7 +38,7 @@ pipeline {
                     if [[ -n "${ole_image_id}" ]]; then
                         docker rmi -f ${ole_image_id}
                     fi
-
+                    ls
                     docker build -f Dockerfile --build-arg jar_name=${JAR_NAME} -t ${IMAGE_NAME}:${VERSION_ID} .
 
                     new_image_id=`docker images|grep ${IMAGE_NAME}|grep ${VERSION_ID}|awk '{print $3}'`
