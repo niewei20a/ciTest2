@@ -42,8 +42,8 @@ pipeline {
                     docker build -f Dockerfile --build-arg jar_name=${JAR_NAME} -t ${IMAGE_NAME}:${VERSION_ID} .
 
                     new_image_id=`docker images|grep ${IMAGE_NAME}|grep ${VERSION_ID}|awk '{print $3}'`
-                    sudo docker tag ${new_image_id} ${IMAGE_ADDR}:${VERSION_ID}
-                    sudo docker push ${IMAGE_ADDR}:${VERSION_ID}
+                    docker tag ${new_image_id} ${IMAGE_ADDR}:${VERSION_ID}
+                    docker push ${IMAGE_ADDR}:${VERSION_ID}
                 '''
             }
         }
@@ -63,8 +63,8 @@ pipeline {
                 echo 'pull image and docker run'
                 withEnv(['JENKINS_NODE_COOKIE=dontKillMe']) {
                     sh '''
-                        sudo docker login --username=yourusername --password=yourpassword ccr.ccs.tencentyun.com
-                        sudo docker pull ${IMAGE_ADDR}:${VERSION_ID}
+                         docker login --username=yourusername --password=yourpassword ccr.ccs.tencentyun.com
+                         docker pull ${IMAGE_ADDR}:${VERSION_ID}
 
                         container_id=`docker ps|grep ${IMAGE_ADDR}:${VERSION_ID}|awk '{print $1}'`
                         if [ -n "${container_id}" ]; then
@@ -76,7 +76,7 @@ pipeline {
                             kill -9 $old_pid
                         fi
 
-                        old_image=`docker images|grep ${IMAGE_ADDR}|grep ${VERSION_ID}`
+                        old_image=`docker images|grep ${IMAGE_ADDR}|grep ${VERSION_ID}  `
                         if [[ -n $old_image ]]; then
                             old_image_id=`echo ${old_image}|awk '{print $3}'`
                             docker rmi -f ${old_image_id}
