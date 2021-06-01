@@ -10,7 +10,7 @@ pipeline {
         PROJECT_NAME="${JOB_NAME}"  			        // 项目名
         JAR_NAME="springboot-test-0.0.1-SNAPSHOT.jar"   // 项目生成的jar的名字
         IMAGE_NAME="springboot-test"                    // 镜像名一般和项目名相同
-        IMAGE_ADDR="registry.cn-hangzhou.aliyuncs.com/niewei/test/${IMAGE_NAME}"    // 镜像的位置
+        IMAGE_ADDR="registry.cn-hangzhou.aliyuncs.com/niewei/test"    // 镜像的位置
         VERSION_ID="${BUILD_ID}"
         BRANCH="master"
     }
@@ -42,6 +42,8 @@ pipeline {
                     docker build -f Dockerfile --build-arg jar_name=${JAR_NAME} -t ${IMAGE_NAME}:${VERSION_ID} .
 
                     new_image_id=`docker images|grep ${IMAGE_NAME}|grep ${VERSION_ID}|awk '{print $3}'`
+                    docker login --username=1819971643@qq.com registry.cn-hangzhou.aliyuncs.com -p 1819971643nw
+
                     docker tag ${new_image_id} ${IMAGE_ADDR}:${VERSION_ID}
                     docker push ${IMAGE_ADDR}:${VERSION_ID}
                 '''
